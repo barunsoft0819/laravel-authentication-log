@@ -3,6 +3,7 @@
 namespace Yadahan\AuthenticationLog\Listeners;
 
 use Illuminate\Auth\Events\Logout;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Yadahan\AuthenticationLog\AuthenticationLog;
