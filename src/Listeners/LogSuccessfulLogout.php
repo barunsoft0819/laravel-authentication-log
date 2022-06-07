@@ -3,6 +3,7 @@
 namespace Yadahan\AuthenticationLog\Listeners;
 
 use Illuminate\Auth\Events\Logout;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Yadahan\AuthenticationLog\AuthenticationLog;
@@ -37,6 +38,10 @@ class LogSuccessfulLogout
     {
         if ($event->user) {
             $user = $event->user;
+            if (!($user instanceof Model)) {
+                // 모델이 아니면 건너뛰기
+                return;
+            }
             $ip = $this->request->ip();
             $userAgent = $this->request->userAgent();
             $authenticationLog = $user->authentications()->whereIpAddress($ip)->whereUserAgent($userAgent)->first();
